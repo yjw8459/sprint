@@ -1,4 +1,4 @@
-package yjw.spring.vscode.tech;
+package com.yjw.sprint.tech;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
