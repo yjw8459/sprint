@@ -18,7 +18,7 @@ public class MemberDTO {
 
     private String email;
 
-    private AddressDTO addressDTO;
+    private AddressDTO address;
 
     public MemberDTO id(Long id){
         this.id = id;
@@ -36,7 +36,7 @@ public class MemberDTO {
     }
 
     public MemberDTO address(Address address){
-        this.addressDTO = address.toDto();
+        this.address = address.toDto();
         return this;
     }
 
@@ -45,7 +45,7 @@ public class MemberDTO {
         return new Member().id(this.id)
                 .name(this.name)
                 .email(this.email)
-                .address(this.addressDTO.toEntity());
+                .address(this.address.toEntity());
     }
 
 }

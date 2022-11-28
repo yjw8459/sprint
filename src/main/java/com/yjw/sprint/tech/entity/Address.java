@@ -7,6 +7,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -23,6 +25,9 @@ public class Address extends AbstractAuditingEntity implements Serializable {
 
     @Column
     public String zipCode;
+
+    @OneToMany(mappedBy = "address")
+    public Set<Member> members = new HashSet<>();
 
     public Address id(Long id){
         this.id = id;
