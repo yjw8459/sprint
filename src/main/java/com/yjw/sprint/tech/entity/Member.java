@@ -5,6 +5,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
@@ -24,6 +26,9 @@ public class Member extends AbstractAuditingEntity implements Serializable {
     // CascadeType.PERSIST: 저장 시 함께 저장
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     public Address address;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    public Set<Order> orders = new HashSet<>();
 
 
     public Member id(Long id){
