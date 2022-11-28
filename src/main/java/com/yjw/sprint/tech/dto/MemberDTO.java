@@ -5,6 +5,9 @@ import com.yjw.sprint.tech.entity.Member;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * DTO
+ */
 @Slf4j
 @Data
 public class MemberDTO {
