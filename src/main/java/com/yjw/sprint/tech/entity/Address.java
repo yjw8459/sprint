@@ -1,6 +1,7 @@
 package com.yjw.sprint.tech.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.yjw.sprint.tech.dto.AddressDTO;
 import lombok.Builder;
 import lombok.Data;
@@ -27,6 +28,7 @@ public class Address extends AbstractAuditingEntity implements Serializable {
     public String zipCode;
 
     @OneToMany(mappedBy = "address")
+    @JsonIgnore
     public Set<Member> members = new HashSet<>();
 
     public Address id(Long id){

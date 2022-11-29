@@ -50,4 +50,13 @@ public class OrderItem {
                 .count(this.count);
     }
 
+    public static OrderItem createOrderItem(Item item, int price, Long count){
+        OrderItem orderItem = new OrderItem();
+        orderItem.setItem(item);
+        orderItem.setCount(count);
+
+        item.setQuantity(item.getQuantity() - count);
+        return orderItem;
+    }
+
 }

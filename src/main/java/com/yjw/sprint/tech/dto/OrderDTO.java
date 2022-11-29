@@ -23,6 +23,13 @@ public class OrderDTO {
 
     public DeliveryStatus status;
 
+    // VM
+    public Long memberId;
+
+    public Long itemId;
+
+    public Long count;
+
     public OrderDTO id(Long id){
         this.id = id;
         return this;

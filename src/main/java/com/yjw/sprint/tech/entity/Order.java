@@ -40,13 +40,7 @@ public class Order extends AbstractAuditingEntity{
     }
 
     public Order orderItems(List<OrderItemDTO> orderItems){
-        System.out.println("==============================");
-        System.out.println(orderItems.toString());
-        System.out.println("==============================");
         this.orderItems = orderItems.stream().map(orderItem -> orderItem.toEntity()).collect(Collectors.toSet());
-        System.out.println("==============================");
-        System.out.println(this.orderItems.toString());
-        System.out.println("==============================");
         return this;
     }
 
@@ -66,4 +60,20 @@ public class Order extends AbstractAuditingEntity{
                 .orderer(this.orderer)
                 .status(this.status);
     }
+
+    public static Order createOrder(Member member, OrderItem... orderItems){
+        Order order = new Order();
+        order.setMember(member);
+        for (OrderItem orderItem : orderItems){
+            order.addOrderItem(orderItem);
+        }
+        return order;
+    }
+
+    public void addOrderItem(OrderItem orderItem){
+        this.orderItems.add(orderItem);
+        orderItem.setOrder(this);
+    }
+
+
 }

@@ -13,7 +13,6 @@ public class LoginController {
     
     @GetMapping
     public ModelAndView login(){
-        log.info("test");
         return new ModelAndView("/login");
     }
     
