@@ -3,6 +3,8 @@ package com.yjw.sprint.tech.entity;
 import com.yjw.sprint.tech.dto.AddressDTO;
 import com.yjw.sprint.tech.dto.MemberDTO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -12,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Data
+@Getter @Setter
 public class Member extends AbstractAuditingEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -28,11 +30,9 @@ public class Member extends AbstractAuditingEntity implements Serializable {
 
     // CascadeType.PERSIST: 저장 시 함께 저장
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    @JoinColumn(name = "address_id")
     public Set<Address> address = new HashSet<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
-    @JoinColumn(name = "order_id")
     public Set<Order> orders = new HashSet<>();
 
 

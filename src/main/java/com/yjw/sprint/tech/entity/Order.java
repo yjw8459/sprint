@@ -5,6 +5,8 @@ import com.yjw.sprint.tech.dto.OrderDTO;
 import com.yjw.sprint.tech.dto.OrderItemDTO;
 import com.yjw.sprint.tech.dto.enumerate.DeliveryStatus;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -14,7 +16,8 @@ import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "orders")
-@Data
+@Getter
+@Setter
 public class Order extends AbstractAuditingEntity{
 
     @Id
@@ -22,6 +25,7 @@ public class Order extends AbstractAuditingEntity{
     public Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     public Member member;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -67,6 +71,7 @@ public class Order extends AbstractAuditingEntity{
         for (OrderItem orderItem : orderItems){
             order.addOrderItem(orderItem);
         }
+        order.toString();
         return order;
     }
 

@@ -3,6 +3,8 @@ package com.yjw.sprint.tech.entity;
 import com.yjw.sprint.tech.dto.ItemDTO;
 import com.yjw.sprint.tech.dto.OrderItemDTO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Data
+@Getter @Setter
 public class Item {
 
     @Id

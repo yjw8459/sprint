@@ -4,11 +4,13 @@ import com.yjw.sprint.tech.dto.ItemDTO;
 import com.yjw.sprint.tech.dto.OrderDTO;
 import com.yjw.sprint.tech.dto.OrderItemDTO;
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity
-@Data
+@Getter @Setter
 public class OrderItem {
 
     @Id
@@ -60,5 +62,8 @@ public class OrderItem {
         item.setQuantity(item.getQuantity() - count);
         return orderItem;
     }
+
+
+
 
 }
