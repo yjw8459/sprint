@@ -5,6 +5,10 @@ import com.yjw.sprint.tech.entity.Member;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
+
 /**
  * DTO
  */
@@ -18,7 +22,7 @@ public class MemberDTO {
 
     private String email;
 
-    private AddressDTO address;
+    private List<AddressDTO> address;
 
     public MemberDTO id(Long id){
         this.id = id;
@@ -35,8 +39,8 @@ public class MemberDTO {
         return this;
     }
 
-    public MemberDTO address(Address address){
-        this.address = address.toDto();
+    public MemberDTO address(Set<Address> address){
+        this.address = address.stream().map(Address::toDto).collect(Collectors.toList());
         return this;
     }
 
@@ -45,7 +49,7 @@ public class MemberDTO {
         return new Member().id(this.id)
                 .name(this.name)
                 .email(this.email)
-                .address(this.address.toEntity());
+                .address(this.address);
     }
 
 }

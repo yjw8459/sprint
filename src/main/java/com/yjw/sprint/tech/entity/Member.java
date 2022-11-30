@@ -1,12 +1,15 @@
 package com.yjw.sprint.tech.entity;
 
+import com.yjw.sprint.tech.dto.AddressDTO;
 import com.yjw.sprint.tech.dto.MemberDTO;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Entity
 @Data
@@ -24,10 +27,12 @@ public class Member extends AbstractAuditingEntity implements Serializable {
     public String email;
 
     // CascadeType.PERSIST: 저장 시 함께 저장
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    public Address address;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JoinColumn(name = "address_id")
+    public Set<Address> address = new HashSet<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    @JoinColumn(name = "order_id")
     public Set<Order> orders = new HashSet<>();
 
 
@@ -46,8 +51,8 @@ public class Member extends AbstractAuditingEntity implements Serializable {
         return this;
     }
 
-    public Member address(Address address){
-        this.address = address;
+    public Member address(List<AddressDTO> address){
+        this.address = address.stream().map(AddressDTO::toEntity).collect(Collectors.toSet());
         return this;
     }
 

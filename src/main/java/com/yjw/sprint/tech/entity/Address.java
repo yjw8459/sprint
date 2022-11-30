@@ -27,9 +27,8 @@ public class Address extends AbstractAuditingEntity implements Serializable {
     @Column
     public String zipCode;
 
-    @OneToMany(mappedBy = "address")
-    @JsonIgnore
-    public Set<Member> members = new HashSet<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    public Member member;
 
     public Address id(Long id){
         this.id = id;
