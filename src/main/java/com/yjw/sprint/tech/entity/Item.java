@@ -42,6 +42,13 @@ public class Item {
         return this;
     }
 
+    public void addQuantity(Long quantity){
+        System.out.println("=============================================");
+        System.out.println("test");
+        System.out.println("=============================================");
+        this.quantity += quantity;
+    }
+
     public ItemDTO toDto(){
         return new ItemDTO().id(this.id)
                 .name(this.name)
