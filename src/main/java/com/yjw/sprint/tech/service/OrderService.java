@@ -2,6 +2,7 @@ package com.yjw.sprint.tech.service;
 
 import com.yjw.sprint.tech.dto.OrderDTO;
 import com.yjw.sprint.tech.dto.OrderItemDTO;
+import com.yjw.sprint.tech.dto.enumerate.OrderStatus;
 import com.yjw.sprint.tech.entity.Item;
 import com.yjw.sprint.tech.entity.Member;
 import com.yjw.sprint.tech.entity.Order;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -58,5 +61,11 @@ public class OrderService {
         return orderRepository.findAll(pageable).map(Order::toDto);
     }
 
+    public Optional<OrderDTO> orderState(Long orderId){
+        return orderRepository.findById(orderId).map(order -> {
+            order.setOrderStatus(OrderStatus.ORDER);
+            return order.toDto();
+        });
+    }
 
 }
