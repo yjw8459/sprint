@@ -22,7 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class StateEventService {
 
     private final OrderRepository orderRepository;
-    private final StateMachineFactory<OrderStatus, OrderEvents>stateMachineFactory;
+    private final StateMachineFactory<OrderStatus, OrderEvents> stateMachineFactory;
     private final StatesChangeInterceptor statesChangeInterceptor;
 //
 //    @Transactional
@@ -32,7 +32,7 @@ public class StateEventService {
 //    }
 
     @Transactional
-    public void orderPass(Long orderId) {
+    public void createOrderState(Long orderId) {
         StateMachine<OrderStatus, OrderEvents> stateMachine = build(orderId);
         sendEvent(orderId, stateMachine, OrderEvents.OrderStartedEvent);
     }
@@ -50,7 +50,7 @@ public class StateEventService {
         Message<OrderEvents> msg = MessageBuilder.withPayload(events)
                 .setHeader("test", orderId)
                 .build();
-        stateMachine.sendEvent(msg);    // Interceptor 호출
+        stateMachine.sendEvent(msg);    // 이벤트 발생
     }
 
     public StateMachine<OrderStatus, OrderEvents> build(Long orderId) {

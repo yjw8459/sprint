@@ -1,9 +1,11 @@
 package com.yjw.sprint.tech.statemachine;
 
 import com.yjw.sprint.tech.dto.enumerate.OrderStatus;
+import com.yjw.sprint.tech.statemachine.action.OrderAction;
 import com.yjw.sprint.tech.statemachine.event.OrderEvents;
 import com.yjw.sprint.tech.statemachine.guard.OrderGuard;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.statemachine.action.Action;
 import org.springframework.statemachine.config.EnableStateMachineFactory;
 import org.springframework.statemachine.config.StateMachineConfigurerAdapter;
 import org.springframework.statemachine.config.builders.StateMachineStateConfigurer;
@@ -18,10 +20,11 @@ public class StateMachineConfigure extends StateMachineConfigurerAdapter<OrderSt
 
     private final OrderGuard orderGuard;
 
-//    private final OrderAction orderAction;
+    private final OrderAction orderAction;
 
-    public StateMachineConfigure(OrderGuard orderGuard) {
+    public StateMachineConfigure(OrderGuard orderGuard, OrderAction orderAction) {
         this.orderGuard = orderGuard;
+        this.orderAction = orderAction;
     }
 
     // State 선언
@@ -44,6 +47,7 @@ public class StateMachineConfigure extends StateMachineConfigurerAdapter<OrderSt
                 .source(OrderStatus.NONE)
                 .guard(orderGuard.is())
                 .target(OrderStatus.ORDER)
+                .action(orderAction.orderAction(OrderStatus.ORDER))
                 .event(OrderEvents.OrderStartedEvent)
                 .and()
 
@@ -51,6 +55,7 @@ public class StateMachineConfigure extends StateMachineConfigurerAdapter<OrderSt
                 .source(OrderStatus.ORDER)
                 .guard(orderGuard.is())
                 .target(OrderStatus.PROCESS)
+                .action(orderAction.orderAction(OrderStatus.PROCESS))
                 .event(OrderEvents.OrderPassedEvent)
                 .and()
 
@@ -58,7 +63,7 @@ public class StateMachineConfigure extends StateMachineConfigurerAdapter<OrderSt
                 .source(OrderStatus.PROCESS)
                 .guard(orderGuard.is())
                 .target(OrderStatus.CANCEL)
-//                 .action(orderAction.complete())
+                .action(orderAction.orderAction(OrderStatus.CANCEL))
                 .event(OrderEvents.OrderCancelEvent)
                 .and()
 
@@ -66,6 +71,7 @@ public class StateMachineConfigure extends StateMachineConfigurerAdapter<OrderSt
                 .source(OrderStatus.PROCESS)
                 .guard(orderGuard.is())
                 .target(OrderStatus.COMP)
+                .action(orderAction.orderAction(OrderStatus.COMP))
                 .event(OrderEvents.OrderCompleteEvent)
                 .and();
     }

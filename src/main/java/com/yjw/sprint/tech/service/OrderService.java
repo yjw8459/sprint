@@ -48,7 +48,7 @@ public class OrderService {
 
         Order order = Order.createOrder(member, orderItem);
         Order result = orderRepository.save(order);
-        stateEventService.orderPass(result.getId());
+        stateEventService.createOrderState(result.getId());
         return result.toDto();
     }
 
