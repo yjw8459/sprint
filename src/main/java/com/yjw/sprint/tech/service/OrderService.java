@@ -10,8 +10,10 @@ import com.yjw.sprint.tech.entity.OrderItem;
 import com.yjw.sprint.tech.repository.ItemRepository;
 import com.yjw.sprint.tech.repository.MemberRepository;
 import com.yjw.sprint.tech.repository.OrderRepository;
+import com.yjw.sprint.tech.statemachine.service.StateEventService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.statemachine.service.StateMachineService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,10 +28,16 @@ public class OrderService {
 
     private ItemRepository itemRepository;
 
-    public OrderService(MemberRepository memberRepository, OrderRepository orderRepository, ItemRepository itemRepository) {
+    private StateEventService stateEventService;
+
+    public OrderService(MemberRepository memberRepository,
+                        OrderRepository orderRepository,
+                        ItemRepository itemRepository,
+                        StateEventService stateEventService) {
         this.memberRepository = memberRepository;
         this.orderRepository = orderRepository;
         this.itemRepository = itemRepository;
+        this.stateEventService = stateEventService;
     }
 
     public OrderDTO create(Long memberId, Long itemId, Long count){
@@ -40,6 +48,7 @@ public class OrderService {
 
         Order order = Order.createOrder(member, orderItem);
         Order result = orderRepository.save(order);
+        stateEventService.orderPass(result.getId());
         return result.toDto();
     }
 
