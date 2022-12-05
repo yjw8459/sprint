@@ -4,6 +4,7 @@ package com.yjw.sprint.tech.entity;
 import com.yjw.sprint.tech.dto.OrderDTO;
 import com.yjw.sprint.tech.dto.OrderItemDTO;
 import com.yjw.sprint.tech.dto.enumerate.DeliveryStatus;
+import com.yjw.sprint.tech.dto.enumerate.OrderStatus;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,7 +37,11 @@ public class Order extends AbstractAuditingEntity{
 
     @Column
     @Enumerated(EnumType.STRING)
-    public DeliveryStatus status;
+    public DeliveryStatus deliveryStatus;
+
+    @Column
+    @Enumerated(EnumType.STRING)
+    public OrderStatus orderStatus;
 
     public Order id(Long id){
         this.id = id;
@@ -53,8 +58,13 @@ public class Order extends AbstractAuditingEntity{
         return this;
     }
 
-    public Order status(DeliveryStatus status){
-        this.status = status;
+    public Order deliveryStatus(DeliveryStatus status){
+        this.deliveryStatus = status;
+        return this;
+    }
+
+    public Order orderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
         return this;
     }
 
@@ -62,7 +72,8 @@ public class Order extends AbstractAuditingEntity{
         return new OrderDTO().id(this.id)
                 .orderItems(this.orderItems)
                 .orderer(this.orderer)
-                .status(this.status);
+                .deliveryStatus(this.deliveryStatus)
+                .orderStatus(this.orderStatus);
     }
 
     public static Order createOrder(Member member, OrderItem... orderItems){
@@ -78,6 +89,11 @@ public class Order extends AbstractAuditingEntity{
     public void addOrderItem(OrderItem orderItem){
         this.orderItems.add(orderItem);
         orderItem.setOrder(this);
+    }
+
+    public Order cancelOrder(Order order){
+        order.setOrderStatus(OrderStatus.CANCEL);
+        return order;
     }
 
 

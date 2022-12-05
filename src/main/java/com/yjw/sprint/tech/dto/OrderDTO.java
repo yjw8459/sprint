@@ -1,6 +1,7 @@
 package com.yjw.sprint.tech.dto;
 
 import com.yjw.sprint.tech.dto.enumerate.DeliveryStatus;
+import com.yjw.sprint.tech.dto.enumerate.OrderStatus;
 import com.yjw.sprint.tech.entity.Order;
 import com.yjw.sprint.tech.entity.OrderItem;
 import lombok.Data;
@@ -21,7 +22,9 @@ public class OrderDTO {
 
     public String orderer;
 
-    public DeliveryStatus status;
+    public DeliveryStatus deliveryStatus;
+
+    public OrderStatus orderStatus;
 
     // VM
     public Long memberId;
@@ -45,8 +48,13 @@ public class OrderDTO {
         return this;
     }
 
-    public OrderDTO status(DeliveryStatus status){
-        this.status = status;
+    public OrderDTO deliveryStatus(DeliveryStatus deliveryStatus){
+        this.deliveryStatus = deliveryStatus;
+        return this;
+    }
+
+    public OrderDTO orderStatus(OrderStatus orderStatus) {
+        this.orderStatus = orderStatus;
         return this;
     }
 
@@ -54,6 +62,7 @@ public class OrderDTO {
         return new Order().id(this.id)
                 .orderItems(this.orderItems)
                 .orderer(this.orderer)
-                .status(this.status);
+                .deliveryStatus(this.deliveryStatus)
+                .orderStatus(this.orderStatus);
     }
 }

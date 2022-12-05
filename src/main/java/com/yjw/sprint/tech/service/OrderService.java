@@ -45,11 +45,18 @@ public class OrderService {
         return order.toDto();
     }
 
+    public OrderDTO delete(Long orderId) {
+        Order order = orderRepository.findById(orderId).orElse(null);
+        if (order != null){
+            order.cancelOrder(order);
+        }
+        return order.toDto();
+    }
+
     @Transactional(readOnly = true)
     public Page<OrderDTO> searchOrders(Pageable pageable){
         return orderRepository.findAll(pageable).map(Order::toDto);
     }
-
 
 
 }

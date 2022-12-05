@@ -21,18 +21,23 @@ public class OrderResource {
     }
 
     @PostMapping("/orders")
-    public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO order){
+    public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO order) {
         return ResponseEntity.status(HttpStatus.CREATED).body(orderService.create(order.getMemberId(), order.getItemId(), order.getCount()));
     }
 
     @GetMapping("/orders")
-    public ResponseEntity<Page<OrderDTO>> searchOrders(Pageable pageable){
+    public ResponseEntity<Page<OrderDTO>> searchOrders(Pageable pageable) {
         return ResponseEntity.ok().body(orderService.searchOrders(pageable));
     }
 
     @PutMapping("/orders")
-    public ResponseEntity<OrderDTO> update(@RequestBody OrderDTO order){
+    public ResponseEntity<OrderDTO> update(@RequestBody OrderDTO order) {
         return ResponseEntity.ok().body(orderService.update(order));
+    }
+
+    @DeleteMapping("/orders/{id}")
+    public ResponseEntity<OrderDTO> cancel(@PathVariable("id") Long orderId) {
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(orderService.delete(orderId));
     }
 
 }
