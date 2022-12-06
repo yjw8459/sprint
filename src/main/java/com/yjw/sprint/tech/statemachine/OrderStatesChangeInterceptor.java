@@ -18,7 +18,7 @@ import java.util.Optional;
 @Component
 @RequiredArgsConstructor
 @Slf4j
-public class StatesChangeInterceptor extends StateMachineInterceptorAdapter<OrderStatus, OrderEvents> {
+public class OrderStatesChangeInterceptor extends StateMachineInterceptorAdapter<OrderStatus, OrderEvents> {
 
     private final OrderRepository orderRepository;
 
@@ -28,13 +28,11 @@ public class StatesChangeInterceptor extends StateMachineInterceptorAdapter<Orde
                                Transition<OrderStatus, OrderEvents> transition,
                                StateMachine<OrderStatus, OrderEvents> stateMachine,
                                StateMachine<OrderStatus, OrderEvents> rootStateMachine) {
-        log.info("=============================================");
         log.info("StatesChangeInterceptor");
-        log.info("=============================================");
-        Optional.ofNullable(message).flatMap(msg -> Optional.ofNullable((Long) msg.getHeaders().getOrDefault("test", -1L)))
+        Optional.ofNullable(message).flatMap(msg -> Optional.ofNullable((Long) msg.getHeaders().getOrDefault("sprint", -1L)))
                 .ifPresent(id -> {
                     orderRepository.findById(id).map(order -> {
-                        order.orderStatus(state.getId());
+                        order.setOrderStatus(state.getId());
                         Order result = orderRepository.save(order);
                         return result.toDto();
                     });

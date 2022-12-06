@@ -43,9 +43,6 @@ public class Item {
     }
 
     public void addQuantity(Long quantity){
-        System.out.println("=============================================");
-        System.out.println("test");
-        System.out.println("=============================================");
         this.quantity += quantity;
     }
 

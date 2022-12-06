@@ -1,7 +1,7 @@
 package com.yjw.sprint.tech.dto.enumerate;
 
 public enum OrderStatus {
-    NONE, ORDER, PROCESS, CANCEL, COMP;
+    NONE, ORDER, PROCESS, REJECT, CANCEL, COMPLETE;
 
     private String name;
 

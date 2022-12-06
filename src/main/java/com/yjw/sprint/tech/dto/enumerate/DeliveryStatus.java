@@ -1,7 +1,7 @@
 package com.yjw.sprint.tech.dto.enumerate;
 
 public enum DeliveryStatus {
-    ORDER, DELIVERY;
+    ORDER, WAIT, SHIP_PROCESS, SHIPPING, COMPLETE, CANCEL;
 
     public String name;
 
