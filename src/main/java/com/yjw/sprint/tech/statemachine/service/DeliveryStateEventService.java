@@ -36,6 +36,7 @@ public class DeliveryStateEventService {
         sendEvent(orderId, stateMachine, events);
     }
 
+    // 2
     private void sendEvent(Long orderId,
                            StateMachine<DeliveryStatus, DeliveryEvents> stateMachine,
                            DeliveryEvents events) {
@@ -46,6 +47,7 @@ public class DeliveryStateEventService {
         stateMachine.sendEvent(msg);
     }
 
+    // 1
     private StateMachine<DeliveryStatus, DeliveryEvents> build(Long orderId) {
         log.info("Delivery State Event Service Build");
         Order order = orderRepository.findById(orderId).orElse(null);

@@ -25,12 +25,14 @@ public class DeliveryStatesChangeInterceptor extends StateMachineInterceptorAdap
 
 
 
+    // 3
     @Override
     public Message<DeliveryEvents> preEvent(Message<DeliveryEvents> message, StateMachine<DeliveryStatus, DeliveryEvents> stateMachine) {
         log.info("Delivery Interceptor preEvent");
         return super.preEvent(message, stateMachine);
     }
 
+    // 6
     @Override
     public void preStateChange(State<DeliveryStatus, DeliveryEvents> state,
                                Message<DeliveryEvents> message,
@@ -49,18 +51,21 @@ public class DeliveryStatesChangeInterceptor extends StateMachineInterceptorAdap
 
     }
 
+    // 7
     @Override
     public void postStateChange(State<DeliveryStatus, DeliveryEvents> state, Message<DeliveryEvents> message, Transition<DeliveryStatus, DeliveryEvents> transition, StateMachine<DeliveryStatus, DeliveryEvents> stateMachine, StateMachine<DeliveryStatus, DeliveryEvents> rootStateMachine) {
         log.info("Delivery Interceptor postStateChange");
         super.postStateChange(state, message, transition, stateMachine, rootStateMachine);
     }
 
+    // 4
     @Override
     public StateContext<DeliveryStatus, DeliveryEvents> preTransition(StateContext<DeliveryStatus, DeliveryEvents> stateContext) {
         log.info("Delivery Interceptor preTransition");
         return super.preTransition(stateContext);
     }
 
+    // 8
     @Override
     public StateContext<DeliveryStatus, DeliveryEvents> postTransition(StateContext<DeliveryStatus, DeliveryEvents> stateContext) {
         log.info("Delivery Interceptor postTransition");

@@ -23,3 +23,16 @@
 ### 주의할 점
 - Black Hole State를 주의할것.(상태는 in, ou에 대한 Transition이 모두 정의되어야 한다.)
 - 일관성을 가지고 State Diagram을 구현할 것.
+
+
+
+## 동작 순서
+
+1. StateEventService.build()
+2. StateEventService.sendEvent()
+3. StatesChangeInterceptor.preEvent()
+4. StatesChangeInterceptor.preTransition()
+5. Action
+6. StatesChangeInterceptor.preStateChange()
+7. StatesChangeInterceptor.postStateChange()
+8. StatesChangeInterceptor.postTransition()
