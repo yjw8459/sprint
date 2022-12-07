@@ -14,7 +14,7 @@ public class OrderActionImpl implements OrderAction {
     @Override
     public Action<OrderStatus, OrderEvents> orderAction(OrderStatus orderStatus) {
         return context -> {
-            log.info("orderState :{}", orderStatus);
+            log.error("orderState :{}", orderStatus);
         };
     }
 

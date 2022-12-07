@@ -40,7 +40,7 @@ public class DeliveryStateEventService {
     private void sendEvent(Long orderId,
                            StateMachine<DeliveryStatus, DeliveryEvents> stateMachine,
                            DeliveryEvents events) {
-        log.info("Delivery SendEvent");
+        log.error("Delivery SendEvent");
         Message<DeliveryEvents> msg = MessageBuilder.withPayload(events)
                 .setHeader("sprint", orderId)
                 .build();
@@ -49,7 +49,7 @@ public class DeliveryStateEventService {
 
     // 1
     private StateMachine<DeliveryStatus, DeliveryEvents> build(Long orderId) {
-        log.info("Delivery State Event Service Build");
+        log.error("Delivery State Event Service Build");
         Order order = orderRepository.findById(orderId).orElse(null);
         StateMachine<DeliveryStatus, DeliveryEvents> stateMachine = stateMachineFactory.getStateMachine(Long.toString(orderId));
         stateMachine.stop();

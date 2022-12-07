@@ -17,7 +17,7 @@ public class OrderStateMachineConfigurerService {
     @PostConstruct
     private void init(){
         stateMachine.start();
-        log.info("Order State Machine Start");
+        log.error("Order State Machine Start");
     }
 
 }

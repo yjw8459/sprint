@@ -19,7 +19,7 @@ public class DeliveryStateMachineConfigurerService {
     @PostConstruct
     private void init(){
         stateMachine.start();
-        log.info("Delivery State Machine Start");
+        log.error("Delivery State Machine Start");
     }
 
 }

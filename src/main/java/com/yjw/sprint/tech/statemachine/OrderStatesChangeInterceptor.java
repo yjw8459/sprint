@@ -28,7 +28,7 @@ public class OrderStatesChangeInterceptor extends StateMachineInterceptorAdapter
                                Transition<OrderStatus, OrderEvents> transition,
                                StateMachine<OrderStatus, OrderEvents> stateMachine,
                                StateMachine<OrderStatus, OrderEvents> rootStateMachine) {
-        log.info("StatesChangeInterceptor");
+        log.error("StatesChangeInterceptor");
         Optional.ofNullable(message).flatMap(msg -> Optional.ofNullable((Long) msg.getHeaders().getOrDefault("sprint", -1L)))
                 .ifPresent(id -> {
                     orderRepository.findById(id).map(order -> {

@@ -14,6 +14,6 @@ public class DeliveryActionImpl implements DeliveryAction {
     // 5
     @Override
     public Action<DeliveryStatus, DeliveryEvents> action(DeliveryEvents event) {
-        return ctx -> log.info("Delivery Action: {}", event);
+        return ctx -> log.error("Delivery Action: {}", event);
     }
 }
