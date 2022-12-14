@@ -2,6 +2,7 @@ package com.yjw.sprint.tech.entity;
 
 import com.yjw.sprint.tech.dto.AddressDTO;
 import com.yjw.sprint.tech.dto.MemberDTO;
+import com.yjw.sprint.tech.security.MemberRole;
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,6 +26,10 @@ public class Member extends AbstractAuditingEntity implements Serializable {
     @Column
     public String name;
 
+    public String userPw;
+
+    public boolean isEnable;
+
     @Column
     public String email;
 
@@ -34,6 +39,9 @@ public class Member extends AbstractAuditingEntity implements Serializable {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     public Set<Order> orders = new HashSet<>();
+
+    @Enumerated(EnumType.STRING)
+    public MemberRole role;
 
 
     public Member id(Long id){

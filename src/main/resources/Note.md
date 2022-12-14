@@ -36,3 +36,8 @@
 6. StatesChangeInterceptor.preStateChange()
 7. StatesChangeInterceptor.postStateChange()
 8. StatesChangeInterceptor.postTransition()
+
+
+## Spring Security
+
+https://mangkyu.tistory.com/77
